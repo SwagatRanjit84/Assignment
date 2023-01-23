@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./home.scss";
 import Card from "../card/card";
+import Modal from "../modal/modal";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState("");
 
   useEffect(() => {
     displayCard();
@@ -14,9 +16,9 @@ const Home = () => {
     setLoading(true);
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        setPosts(json);
+      .then((response) => {
+        console.log(response);
+        setPosts(response);
         setLoading(false);
       });
   };
@@ -25,6 +27,7 @@ const Home = () => {
 
   return (
     <div className="app">
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
       <div className="wrapper">
         {posts &&
           posts.map((post) => {
@@ -40,7 +43,9 @@ const Home = () => {
           })}
       </div>
       <br />
-      <button className="btn-add">Add new post</button>
+      <button className="btn-add" onClick={() => setModalOpen(true)}>
+        Add new post
+      </button>
     </div>
   );
 };
