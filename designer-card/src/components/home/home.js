@@ -18,7 +18,7 @@ const Home = () => {
   }, [state.item1]);
 
   const displayCard = () => {
-    if (isLoading) {
+    if (isLoading && !state.item1.data) {
       setLoading(true);
       dispatch(fetchItems());
     }
@@ -38,7 +38,7 @@ const Home = () => {
             return (
               <div className="wrapper">
                 <Card
-                  img="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                  img="https://plus.unsplash.com/premium_photo-1669863791240-896f003fbbeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
                   title={post.title}
                   description={post.body}
                 />
