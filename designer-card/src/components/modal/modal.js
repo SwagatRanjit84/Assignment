@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./modal.scss";
 import { TextField } from "office-ui-fabric-react";
+import { useDispatch, useSelector } from "react-redux";
+import { createItem } from "../redux/slice/create-item";
 
 function Modal({ setOpenModal }) {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [allValues, setAllValues] = useState({
     title: "",
     body: "",
   });
-
   const initialData = { title: "", body: "" };
 
   const myChangeHandler = (e) => {
@@ -15,9 +18,9 @@ function Modal({ setOpenModal }) {
   };
 
   const saveItem = async (e) => {
-    console.log(allValues);
     setAllValues({ ...allValues, initialData });
     setOpenModal(false);
+    await dispatch(createItem(allValues));
   };
 
   return (
@@ -41,7 +44,7 @@ function Modal({ setOpenModal }) {
             name="title"
             placeholder="Enter title"
             onChange={myChangeHandler}
-          />{" "}
+          />
           <br />
           <TextField
             label="Body"
